@@ -15,7 +15,7 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['Regular', 'Admin', 'NonValidated'],
+    enum: ['Regular', 'Admin', 'NotValidated'],
     required: true,
   },
 });

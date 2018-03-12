@@ -20,6 +20,7 @@ router.post('/signup', (req, res) => {
     const newUser = new User({
       username: req.body.username,
       password: req.body.password,
+      role: 'NotValidated',
     });
     // save the user
     newUser.save((err) => {
@@ -45,7 +46,7 @@ router.post('/signin', (req, res) => {
       user.comparePassword(req.body.password, (errCompare, isMatch) => {
         if (isMatch && !errCompare) {
           // if user is found and password is right create a token
-          const token = jwt.sign(user.toJSON(), SECRET);
+          const token = jwt.sign({ user: user.username, role: user.role }, SECRET);
           // return the information including token as JSON
           res.json({ success: true, token: `JWT ${token}` });
         } else {

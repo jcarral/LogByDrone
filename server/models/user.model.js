@@ -13,6 +13,11 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ['Regular', 'Admin', 'NonValidated'],
+    required: true,
+  },
 });
 
 UserSchema.pre('save', function (next) {
@@ -34,7 +39,7 @@ UserSchema.pre('save', function (next) {
   return next();
 });
 
-UserSchema.methods.comparePassword = (passw, cb) => {
+UserSchema.methods.comparePassword = function (passw, cb) {
   bcrypt.compare(passw, this.password, (err, isMatch) => {
     if (err) {
       return cb(err);

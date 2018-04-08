@@ -1,5 +1,6 @@
 import React from 'react';
 import { EmptyList, WarningAlert } from '../../components';
+import { Table, Button } from 'reactstrap';
 
 export const Flights = ({
   items,
@@ -62,10 +63,40 @@ export const Flights = ({
 };
 
 const FlightList = ({ items }) => (
-  <div>
-    { items.map((flight, i) => <div key={i}> {flight.name} {flight.drone.name} {flight.pilot.name} </div>)}
-    </div>
+  <Table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre del vuelo</th>
+        <th>Drone</th>
+        <th>Piloto</th>
+        <th> Velocidad maxima </th>
+        <th> Altura máxima</th>
+        <th> Posición </th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      {items.map((flight, i) => (
+        <tr>
+          <th> {i} </th>
+          <th> {flight.name ||  ''} </th>
+          <th> {flight.drone.name ||  ''} </th>
+          <th> {flight.pilot.name ||  ''} </th>
+          <th> {flight.flight.maxHSpeed ||  ''}</th>
+          <th> {flight.flight.maxHeight || ''}</th>
+          <th> {flight.flight.latitude || ''},{flight.flight.longitude}</th>
+
+          <th> <Button color='danger'> Borrar </Button> </th>
+        </tr>
+      )
+      )}
+    </tbody>
+
+  </Table>
 );
+
+//{ items.map((flight, i) => <div key={i}> {flight.name} {flight.drone.name} {flight.pilot.name} </div>) }
 
 const FlightUpload = ({
   handleAddFile,
@@ -131,11 +162,11 @@ const FlightUpload = ({
 
         <input className="file-input" type="file" onChange={handleAddFile} />
       </div>
-      <button
+      <Button
         type='button'
         onClick={() => handleAddFlight()}
       >
       Añadir vuelo
-      </button>
+      </Button>
     </div>
 );

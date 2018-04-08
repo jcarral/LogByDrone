@@ -1,5 +1,6 @@
 import React from 'react';
 import { EmptyList } from '../../components';
+import { Table, Button } from 'reactstrap';
 
 export const Pilots = ({ items, handleAddPilot, handleChangeText, pilotName, error }) => {
   return (
@@ -35,18 +36,36 @@ export const CreatePilot = ({ handleAddPilot, pilotName, handleChangeText }) => 
       onChange={(e) => handleChangeText(e.target.value, 'pilotName')}
       value={pilotName}
     />
-    <button
+    <Button
       onClick={() => handleAddPilot()}
     >
       Añadir
-    </button>
+    </Button>
   </div>
 );
 
 const PilotList = ({ items }) => (
-  <div>
-    {items.map((pilot, i) => (<div key={i}> {pilot.name} </div>))}
-  </div>
+  <Table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre del piloto</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {items.map((pilot, i) => (
+        <tr>
+          <th> {i} </th>
+          <th> {pilot.name ||  ''} </th>
+          <th> <Button> Ver sus vuelos </Button> </th>
+          <th> <Button> Borrar </Button> </th>
+        </tr>
+      )
+      )}
+    </tbody>
+  </Table>
 );
 
 export const EditPilot = () => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { EmptyList } from '../../components';
+import { Button, Table } from 'reactstrap';
 
 const droneSizes = [
   '12x12',
@@ -62,16 +63,39 @@ const CreateDrone = ({ handleChangeText, values, handleAddDrone}) => (
         )
       }
     </select>
-    <button
+    <Button
       onClick={() => handleAddDrone()}
     >
       Añadir drone
-    </button>
+    </Button>
   </div>
 );
 
 const DroneList = ({ items }) => (
-  <div>
-    {items.map((drone, i) => (<div key={i}> { drone.name }, { drone.type } </div>))}
-  </div>
+  <Table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre del drone</th>
+        <th>Tipo de drone</th>
+        <th>Peso del drone</th>
+        <th>Tamaño del drone </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {items.map((drone, i) => (
+        <tr>
+          <th> {i} </th>
+          <th> { drone.name || ''} </th>
+          <th> { drone.type || ''} </th>
+          <th> { drone.weight || 0} </th>
+          <th> { drone.size || ''}</th>
+          <th> <Button> Borrar </Button> </th>
+        </tr>
+        )
+      )}
+    </tbody>
+   
+  </Table>
 );

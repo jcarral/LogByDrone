@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import logo from './logo.svg';
 import './App.css';
 import { store, Router } from './config';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const config = {
   apiKey: "AIzaSyC42s40pI4C3JnUqCxSI-9DrVN_ApqX1q0",

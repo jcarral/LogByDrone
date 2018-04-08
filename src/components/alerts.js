@@ -1,7 +1,7 @@
 import React from 'react';
-
+import { Alert } from 'reactstrap';
 export const WarningAlert = ({ children }) => (
-  <div>
+  <Alert color='warning'>
     { children }
-  </div>
+  </Alert>
 );

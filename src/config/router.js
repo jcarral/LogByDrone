@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { getUser } from '../auth';
 
-import { LoginPage } from '../auth';
+import { LoginPage, SignUpPage } from '../auth';
+import { Hangar } from '../hangar';
 
 const ProtectedRoute = ({ component: Comp, loggedIn, path, ...rest }) => {
   return (
     <Route
+      exact={true}
       path={path}
       {...rest}
       render={
@@ -26,8 +29,34 @@ const ProtectedRoute = ({ component: Comp, loggedIn, path, ...rest }) => {
   );
 };
 
+const AnonRoute = ({ component: Comp, loggedIn, path, ...rest }) => (
+  <Route
+    exact={true}
+    path={path}
+    {...rest}
+    render={
+      (props) => {
+        return !loggedIn ? <Comp {...props} /> : <Redirect to={{
+          pathname: '/',
+          state: {
+            prevLocation: path,
+            error: 'You need to logout first'
+          }
+        }
+        }
+        />
+      }
+    }
+  />
+);
+
 class RouterApp extends Component {
   state = {}
+  componentWillMount = () => {
+    const { getUserAction } = this.props;
+    getUserAction();
+  }
+  
 
   render() {
     const { state = {} } = this.props.location || {};
@@ -36,20 +65,14 @@ class RouterApp extends Component {
     return (
       <BrowserRouter>
       <div>
-          {loggedIn &&
-        (<nav>
-          <Link to='/'> Home </Link>
-          <Link to='/profile'> Profile </Link>
-          <Link to='/flights'> Flights </Link>
-          <Link to='/pilot'> Pilots </Link>
-          <Link to='/upload'> Upload </Link>
-        </nav>)
-        }
+        
         {error && <div> Error: {error} </div>}
           <Switch>
-            <Route exact path='/login' component={LoginPage} />
-            <ProtectedRoute path='/' component={TestComponent} loggedIn={loggedIn}/>
+            <AnonRoute path='/login' component={LoginPage} loggedIn={loggedIn}/>
+            <AnonRoute path='/signup' component={SignUpPage} loggedIn={loggedIn}/>
+            <ProtectedRoute path='/' component={Hangar} loggedIn={loggedIn} />
             <ProtectedRoute path='/profile' component={TestComponent} loggedIn={loggedIn} />
+            <Redirect from='*' to='Hangar' />
           </Switch>
         </div>
       </BrowserRouter>
@@ -62,7 +85,7 @@ const mapStateToProps = (state, action) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+  getUserAction : () => dispatch(getUser()),
 });
 
 export const Router = connect(mapStateToProps, mapDispatchToProps)(RouterApp);

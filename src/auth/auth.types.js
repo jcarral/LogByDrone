@@ -1,3 +1,8 @@
 export const START_LOGIN = 'START_LOGIN';
 export const SUCCESS_LOGIN = 'SUCCESS_LOGIN';
 export const ERROR_LOGIN = 'ERROR_LOGIN';
+export const START_SIGNUP = 'START_SIGNUP';
+export const SUCCESS_SIGNUP = 'SUCCESS_SIGNUP';
+export const ERROR_SIGNUP = 'ERROR_SIGNUP';
+export const SUCCESS_GETUSER = 'SUCCESS_GETUSER';
+export const ERROR_GETUSER = 'ERROR_GETUSER';

@@ -12,8 +12,9 @@ class LoginContainer extends Component {
   };
 
   componentWillReceiveProps = nextProps => {
-    const { isLoggedIn, history } = nextProps;
+    const { isLoggedIn, history, error } = nextProps;
     if (isLoggedIn) return history.push('/');
+    else if (error) this.setState({ errors: ['Error: Usuario ya existente'] });
   }
 
   handleLogin = () => {

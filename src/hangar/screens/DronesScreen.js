@@ -9,7 +9,7 @@ const droneSizes = [
   '96x96',
 ];
 
-export const Drones = ({ items, handleAddDrone, handleChangeText, values, error }) => {
+export const Drones = ({ items, handleAddDrone, handleChangeText, values, error, handleDelete }) => {
   return (
     <div>
       {
@@ -26,7 +26,8 @@ export const Drones = ({ items, handleAddDrone, handleChangeText, values, error 
         && (<EmptyList type={'drones'} />)
       }
       {
-        <DroneList items={items} />
+        (items && items.length > 0)
+        && <DroneList items={items} handleDelete={handleDelete}/>
       }
     </div>
   );
@@ -71,7 +72,7 @@ const CreateDrone = ({ handleChangeText, values, handleAddDrone}) => (
   </div>
 );
 
-const DroneList = ({ items }) => (
+const DroneList = ({ items, handleDelete }) => (
   <Table>
     <thead>
       <tr>
@@ -91,7 +92,7 @@ const DroneList = ({ items }) => (
           <th> { drone.type || ''} </th>
           <th> { drone.weight || 0} </th>
           <th> { drone.size || ''}</th>
-          <th> <Button> Borrar </Button> </th>
+          <th> <Button color='danger' onClick={() => handleDelete('drones', drone.key)}> Borrar </Button> </th>
         </tr>
         )
       )}

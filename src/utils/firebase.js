@@ -20,6 +20,8 @@ export class Firebase {
     };
   };
 
+  static logOut = async () => firebase.auth().signOut();
+
   static signUp = async (userEmail, password, name) => {
     const user = await firebase.auth()
       .createUserWithEmailAndPassword(userEmail, password);
@@ -55,7 +57,7 @@ export class Firebase {
     const pilotsRef = firebase.database().ref('groups').child(group).child('pilots');
     if( await Firebase.exists(pilotsRef.orderByChild('name'), pilotData.name)) throw new Error('Piloto existente');
     const key = pilotsRef.push().key;
-    await pilotsRef.push(pilotData);
+    await pilotsRef.child(key).set(pilotData);
     return {
       ...pilotData,
       key,
@@ -67,7 +69,7 @@ export class Firebase {
     const droneRef = firebase.database().ref('groups').child(group).child('drones');
     if (await Firebase.exists(droneRef.orderByChild('name'), droneData.name)) throw new Error('Drone existente');
     const key = droneRef.push().key;
-    await droneRef.push(droneData);
+    await droneRef.child(key).set(droneData);
     return {
       ...droneData,
       key,
@@ -92,13 +94,18 @@ export class Firebase {
     const flightRef = firebase.database().ref('groups').child(group).child('flights');
     if (await Firebase.exists(flightRef.orderByChild('name'), flightData.name)) throw new Error('Vuelo existente');
     const key = flightRef.push().key;
-    await flightRef.push(flightData);
+    await flightRef.child(key).set(flightData);
     return {
       ...flightData,
       key,
     };
   };
 
+  static deleteItem = async (type, key, group) => {
+    if (!group) throw new Error('No existe la organización');
+    const ref = firebase.database().ref('groups').child(group).child(type).child(key);
+    return ref.remove();
+  }
   static exists = async (ref, val) => {
     console.log(val);
     const snap = await ref.equalTo(val).once('value');

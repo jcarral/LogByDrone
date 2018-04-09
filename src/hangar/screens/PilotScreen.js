@@ -2,7 +2,7 @@ import React from 'react';
 import { EmptyList } from '../../components';
 import { Table, Button } from 'reactstrap';
 
-export const Pilots = ({ items, handleAddPilot, handleChangeText, pilotName, error }) => {
+export const Pilots = ({ items, handleAddPilot, handleChangeText, pilotName, error, handleDelete }) => {
   return (
     <div>
       { error 
@@ -20,7 +20,7 @@ export const Pilots = ({ items, handleAddPilot, handleChangeText, pilotName, err
       {
         items
         && items.length > 0
-        && <PilotList items={items} />
+        && <PilotList items={items} handleDelete={handleDelete}/>
       }
      
     </div>
@@ -44,7 +44,7 @@ export const CreatePilot = ({ handleAddPilot, pilotName, handleChangeText }) => 
   </div>
 );
 
-const PilotList = ({ items }) => (
+const PilotList = ({ items, handleDelete }) => (
   <Table>
     <thead>
       <tr>
@@ -60,7 +60,7 @@ const PilotList = ({ items }) => (
           <th> {i} </th>
           <th> {pilot.name ||  ''} </th>
           <th> <Button> Ver sus vuelos </Button> </th>
-          <th> <Button> Borrar </Button> </th>
+          <th> <Button color='danger' onClick={() => handleDelete('pilots', pilot.key)}> Borrar </Button> </th>
         </tr>
       )
       )}

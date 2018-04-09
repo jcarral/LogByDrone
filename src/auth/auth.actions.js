@@ -7,6 +7,9 @@ import {
   SUCCESS_GETUSER,
   START_SIGNUP,
   ERROR_GETUSER,
+  ERROR_LOGOUT,
+  START_LOGOUT,
+  SUCCESS_LOGOUT,
 } from './auth.types';
 import { Firebase } from '../utils';
 
@@ -78,3 +81,21 @@ export const getUser = () => {
     }
   }
 }
+
+export const logout = () => async (dispatch) => {
+  try{
+    dispatch({
+      type: START_LOGOUT,
+    });
+    await Firebase.logOut();
+    localStorage.removeItem('user');
+    dispatch({
+      type: SUCCESS_LOGOUT,
+    });
+  } catch (e) {
+    dispatch({
+      type: ERROR_LOGOUT,
+      payload: e,
+    })
+  }
+};

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addPilot, getHangar, addDrone, parseFlight } from './hangar.actions';
+import { addPilot, getHangar, addDrone, parseFlight, deleteItem } from './hangar.actions';
+import { logout } from '../auth';
 import { HangarScreen, Pilots, Flights, Drones } from './screens';
 import { LoadingTab } from '../components';
 import { Validator } from '../utils';
@@ -25,7 +26,7 @@ class HangarContainer extends Component{
     flightPilot: {},
     flightDrone: {},
   };
-  
+
   componentWillMount = () => {
     const { groupId, getHangarAction } = this.props;
     if(groupId){
@@ -77,19 +78,20 @@ class HangarContainer extends Component{
       flightDrone,
       flightPilot,
     } = this.state;
+    const {flights, drones} = this.props;
     let drone = Object.assign({}, flightDrone);
     let pilot = Object.assign({}, flightPilot);
     const { addFlightAction } = this.props;
     if (Object.keys(drone).length === 0){
       drone = {
-        name: this.props.drones[0].name,
-        key: this.props.drones[0].key,
+        name: drones[0].name,
+        key: drones[0].key,
       };
     }
     if (Object.keys(pilot).length === 0) {
       pilot = {
-        name: this.props.flights[0].name,
-        key: this.props.flights[0].key,
+        name: flights[0].name,
+        key: flights[0].key,
       };
     }
 
@@ -134,6 +136,17 @@ class HangarContainer extends Component{
     this.setState(Object.assign({}, this.state, tmpState));
   };
 
+  handleLogout = async () => {
+    const { logoutAction, history } = this.props;
+    await logoutAction();
+    history.push('/');
+  }
+
+  handleDelete = (type, key) => {
+    const { deleteItemAction } = this.props;
+    deleteItemAction(type, key);
+  };
+
   render(){
     const {
       pilots,
@@ -167,6 +180,7 @@ class HangarContainer extends Component{
         handleSelect={this.handleSelect}
         flightPilot={flightPilot}
         flightDrone={flightDrone}
+        handleDelete={this.handleDelete}
       />,
       <Drones
         items={drones}
@@ -179,6 +193,7 @@ class HangarContainer extends Component{
           droneType
         }}
         error={updateErrors.drones}
+        handleDelete={this.handleDelete}
       />,
       <Pilots
         items={pilots}
@@ -186,11 +201,15 @@ class HangarContainer extends Component{
         handleChangeText={this.handleChangeText}
         pilotName={pilotName}
         error={updateErrors.pilots}
+        handleDelete={this.handleDelete}
       />,
     ];
 
     return (
-      <HangarScreen handleChangeTab={this.handleChangeText}>
+      <HangarScreen
+        handleChangeTab={this.handleChangeText}
+        handleLogout={this.handleLogout}
+      >
         { 
           loading 
           && (<LoadingTab />)
@@ -218,6 +237,8 @@ const mapDispatchToProps = dispatch => ({
   addPilotAction: (pilotData, groupId) => dispatch(addPilot(pilotData, groupId)),
   addDroneAction: (droneData, groupId) => dispatch(addDrone(droneData, groupId)),
   addFlightAction: (file, data) => dispatch(parseFlight(file, data)),
+  logoutAction: () => dispatch(logout()),
+  deleteItemAction: (type, key) => dispatch(deleteItem(type, key)),
 });
 
 export const Hangar = connect(mapStateToProps, mapDispatchToProps)(HangarContainer);

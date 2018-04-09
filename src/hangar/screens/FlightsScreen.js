@@ -13,7 +13,8 @@ export const Flights = ({
   flightName,
   flightPilot,
   flightDrone,
-  handleSelect
+  handleSelect,
+  handleDelete,
 }) => {
   return (
     <div>
@@ -24,7 +25,7 @@ export const Flights = ({
       {
         pilots.length === 0
         && drones.length === 0
-        && (<WarningAlert> Por favor añade antes FlightUploadal menos un piloto y un drone </WarningAlert>)
+        && (<WarningAlert> Por favor añade antes al menos un piloto y un drone </WarningAlert>)
       }
       {
         pilots.length === 0
@@ -56,13 +57,13 @@ export const Flights = ({
       }
       {
         (items && items.length > 0)
-        && (<FlightList items={items}/>)
+        && (<FlightList items={items} handleDelete={handleDelete}/>)
       }
     </div>
   );
 };
 
-const FlightList = ({ items }) => (
+const FlightList = ({ items, handleDelete }) => (
   <Table>
     <thead>
       <tr>
@@ -87,7 +88,7 @@ const FlightList = ({ items }) => (
           <th> {flight.flight.maxHeight || ''}</th>
           <th> {flight.flight.latitude || ''},{flight.flight.longitude}</th>
 
-          <th> <Button color='danger'> Borrar </Button> </th>
+          <th> <Button color='danger' onClick={() => handleDelete('flights', flight.key)}> Borrar </Button> </th>
         </tr>
       )
       )}

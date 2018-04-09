@@ -11,6 +11,11 @@ import {
   START_PARSE_FLIGHT,
   ERROR_PARSE_FLIGHT,
   SUCCESS_PARSE_FLIGHT,
+  ERROR_DELETE_ITEM,
+  START_DELETE_ITEM,
+  SUCCESS_DELETE_ITEM_FLIGHT,
+  SUCCESS_DELETE_ITEM_DRONE,
+  SUCCESS_DELETE_ITEM_PILOT,
 } from './hangar.types';
 import { Firebase, Parser } from '../utils';
 
@@ -99,6 +104,33 @@ export const parseFlight = (file, data) => async (dispatch, getState) => {
   } catch (e) {
     dispatch({
       type: ERROR_PARSE_FLIGHT,
+      payload: e,
+    });
+  }
+};
+
+export const deleteItem = (type, key) => async (dispatch, getState) => {
+  try{
+    const { groupId } = getState().auth;
+    let actionType;
+    if( type === 'flights') actionType = SUCCESS_DELETE_ITEM_FLIGHT;
+    else if ( type === 'drones') actionType = SUCCESS_DELETE_ITEM_DRONE;
+    else if (type === 'pilots') actionType = SUCCESS_DELETE_ITEM_PILOT;
+    else return dispatch({
+      type: ERROR_DELETE_ITEM,
+      payload: 'Tipo de elemento a borrar incorrecto',
+    });
+    dispatch({
+      type: START_DELETE_ITEM,
+    });
+    await Firebase.deleteItem(type, key, groupId);
+    dispatch({
+      type: actionType,
+      payload: key,
+    });
+  } catch (e) {
+    dispatch({
+      type: ERROR_DELETE_ITEM,
       payload: e,
     });
   }

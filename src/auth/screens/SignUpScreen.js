@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../../styles/cardStyling.css';
+import {MainNavBar} from '../../mainNavbar';
+import '../../styles/headerAdjusting.css';
 
 export const SignUpScreen = ({ handleChangeText, handleSignUp, values }) => (
-  <div className="card bg-light mb-3 headerAdjusting mx-auto borderPad">
+  <div className="card bg-light mb-3 headerAdjusting mx-auto borderPad width-35rem card-border-pad headerAdjusting">
     <div className="card-header text-center">Registro</div>
     <div className="form-group">
       <label htmlFor="username">Nombre</label>

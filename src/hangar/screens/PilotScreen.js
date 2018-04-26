@@ -1,12 +1,14 @@
 import React from 'react';
 import { EmptyList } from '../../components';
 import { Table, Button } from 'reactstrap';
+import {MainNavBar} from '../../mainNavbarLogged';
+import '../../styles/headerAdjusting.css';
 
 export const Pilots = ({ items, handleAddPilot, handleChangeText, pilotName, error, handleDelete }) => {
   return (
-    <div>
-      { error 
-      && <div> {error} </div> 
+    <div className="headerAdjusting">
+      { error
+      && <div> {error} </div>
       }
       <CreatePilot
         handleAddPilot={handleAddPilot}
@@ -22,7 +24,7 @@ export const Pilots = ({ items, handleAddPilot, handleChangeText, pilotName, err
         && items.length > 0
         && <PilotList items={items} handleDelete={handleDelete}/>
       }
-     
+
     </div>
   );
 };

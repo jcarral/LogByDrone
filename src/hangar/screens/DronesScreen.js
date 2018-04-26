@@ -1,6 +1,8 @@
 import React from 'react';
 import { EmptyList } from '../../components';
 import { Button, Table } from 'reactstrap';
+import {MainNavBar} from '../../mainNavbarLogged';
+import '../../styles/headerAdjusting.css';
 
 const droneSizes = [
   '12x12',
@@ -11,9 +13,9 @@ const droneSizes = [
 
 export const Drones = ({ items, handleAddDrone, handleChangeText, values, error, handleDelete }) => {
   return (
-    <div>
+    <div className="headerAdjusting">
       {
-        error 
+        error
         && ( <div> { error } </div>) //TODO: usar component alerta
       }
       <CreateDrone
@@ -97,6 +99,6 @@ const DroneList = ({ items, handleDelete }) => (
         )
       )}
     </tbody>
-   
+
   </Table>
 );

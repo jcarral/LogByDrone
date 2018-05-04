@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 export const MainNavBar = (props) => {
   return (
+    <div>
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	  < Link to='/' className="navbar-brand" >NEmpresa</Link>
 	  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,5 +20,7 @@ export const MainNavBar = (props) => {
 		</ul>
 	  </div>
 	</nav>
+  <div className="headerAdjusting"><br/></div>
+  </div>
   );
 };

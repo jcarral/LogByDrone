@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-
+//TODO borrar?
 export const MainNavBarLogged = (props) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">

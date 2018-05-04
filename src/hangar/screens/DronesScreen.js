@@ -1,8 +1,11 @@
 import React from 'react';
 import { EmptyList } from '../../components';
 import { Button, Table } from 'reactstrap';
+
 import {MainNavBar} from '../../mainNavbarLogged';
 import '../../styles/headerAdjusting.css';
+import {sortTable} from '../../functions/sortTables'
+import {filterType} from '../../functions/filterType'
 
 const droneSizes = [
   '12x12',
@@ -71,30 +74,34 @@ const CreateDrone = ({ handleChangeText, values, handleAddDrone}) => (
     >
       Añadir drone
     </Button>
+
   </div>
 );
+
+
+
 
 const DroneList = ({ items, handleDelete }) => (
   <Table>
     <thead>
       <tr>
-        <th>#</th>
-        <th>Nombre del drone</th>
-        <th>Tipo de drone</th>
-        <th>Peso del drone</th>
-        <th>Tamaño del drone </th>
+        <th onClick={sortTable(0)} >#</th>
+        <th onClick={sortTable(1)}>Nombre del drone</th>
+        <th onClick={sortTable(2)}>Tipo de drone</th>
+        <th onClick={sortTable(3)}>Peso del drone</th>
+        <th onClick={sortTable(4)}>Tamaño del drone </th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       {items.map((drone, i) => (
         <tr>
-          <th> {i} </th>
-          <th> { drone.name || ''} </th>
-          <th> { drone.type || ''} </th>
-          <th> { drone.weight || 0} </th>
-          <th> { drone.size || ''}</th>
-          <th> <Button color='danger' onClick={() => handleDelete('drones', drone.key)}> Borrar </Button> </th>
+          <td> {i} </td>
+          <td> { drone.name || ''} </td>
+          <td> { drone.type || ''} </td>
+          <td> { drone.weight || 0} </td>
+          <td> { drone.size || ''}</td>
+          <td> <Button color='danger' onClick={() => handleDelete('drones', drone.key)}> Borrar </Button> </td>
         </tr>
         )
       )}

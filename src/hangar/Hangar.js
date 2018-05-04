@@ -7,10 +7,12 @@ import { HangarScreen, Pilots, Flights, Drones } from './screens';
 import { LoadingTab } from '../components';
 import { Validator } from '../utils';
 
+import {Filter} from './screens/FilterScreen';
 // TABS:
 const FLIGHTS = 0;
 const DRONES = 1;
 const PILOTS = 2;
+const FILTER = 3;
 
 class HangarContainer extends Component{
 
@@ -45,7 +47,7 @@ class HangarContainer extends Component{
         },
         groupId
       );
-    } 
+    }
   };
 
   handleAddDrone = () => {
@@ -100,7 +102,7 @@ class HangarContainer extends Component{
       pilot,
       name: flightName,
     });
-    
+
   }
 
   handleChangeText = (text, key) => {
@@ -203,6 +205,9 @@ class HangarContainer extends Component{
         error={updateErrors.pilots}
         handleDelete={this.handleDelete}
       />,
+      <Filter
+        items={drones}
+      />,
     ];
 
     return (
@@ -210,13 +215,13 @@ class HangarContainer extends Component{
         handleChangeTab={this.handleChangeText}
         handleLogout={this.handleLogout}
       >
-        { 
-          loading 
+        {
+          loading
           && (<LoadingTab />)
         }
-        { 
+        {
           !loading
-          && tabComponents[tab] 
+          && tabComponents[tab]
         }
       </HangarScreen>
     );

@@ -3,6 +3,7 @@ import { EmptyList, WarningAlert } from '../../components';
 import { Table, Button } from 'reactstrap';
 import {MainNavBar} from '../../mainNavbarLogged';
 import '../../styles/headerAdjusting.css';
+import {sortTable} from '../../functions/sortTables'
 
 export const Flights = ({
   items,
@@ -69,13 +70,13 @@ const FlightList = ({ items, handleDelete }) => (
   <Table>
     <thead>
       <tr>
-        <th>#</th>
-        <th>Nombre del vuelo</th>
-        <th>Drone</th>
-        <th>Piloto</th>
-        <th> Velocidad maxima </th>
-        <th> Altura máxima</th>
-        <th> Posición </th>
+        <th onClick={sortTable(0)}>#</th>
+        <th onClick={sortTable(1)}>Nombre del vuelo</th>
+        <th onClick={sortTable(2)}>Drone</th>
+        <th onClick={sortTable(3)}>Piloto</th>
+        <th onClick={sortTable(4)}> Velocidad maxima </th>
+        <th onClick={sortTable(5)}> Altura máxima</th>
+        <th onClick={sortTable(6)}> Posición </th>
         <th> </th>
       </tr>
     </thead>

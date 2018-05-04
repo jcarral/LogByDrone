@@ -69,7 +69,8 @@ class RouterApp extends Component {
       <BrowserRouter>
       <div>
         {
-          loggedIn ? <MainNavBarLogged/> : <MainNavBar/>
+          !loggedIn
+          &&  <MainNavBar/>
         }
 
         {error && <div> Error: {error} </div>}

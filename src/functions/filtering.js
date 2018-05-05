@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 const filtering = (lista, filter) => {
   let tablaFiltrada;
-  console.log(2,lista);
+
     tablaFiltrada=lista
     .filter( item =>item.name.includes(filter[0]))
     .filter( item =>item.type.includes(filter[1]))
@@ -18,7 +18,7 @@ const filtering = (lista, filter) => {
       </tr>
       )
     )
-console.log(3,tablaFiltrada);
+
 return tablaFiltrada;
 };
 

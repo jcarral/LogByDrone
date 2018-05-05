@@ -4,45 +4,7 @@ import {sortTable} from '../../functions/sortTables'
 import {filtering} from '../../functions/filtering'
 
 const Filtro = ({ lista , filter ,  handleChangeFilter }) => {
-  lista = [
-    {
-      name : 'aa',
-      type : 'aa',
-      weight : '1',
-      size : '12x12'
-    },
-    {
-      name : 'aa',
-      type : 'aa',
-      weight : '2',
-      size : '12x12'
-    },
-    {
-      name : 'bb',
-      type : 'cc',
-      weight : '1',
-      size : '12x12'
-    },
-    {
-      name : 'cc',
-      type : 'cc',
-      weight : '1',
-      size : '12x12'
-    },
-    {
-      name : 'dd',
-      type : 'dd',
-      weight : '1',
-      size : '12x12'
-    },
-    {
-      name : 'adda',
-      type : 'adda',
-      weight : '1',
-      size : '12x12'
-    }
-  ]
-  console.log(1,lista);
+
   return (
     <div>
     <input

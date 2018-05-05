@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 
-const filtering = (lista, field, filter) => {
+const filtering = (lista, filter) => {
   let tablaFiltrada;
-
-  switch (field) {
-  case 'name':
-    tablaFiltrada=lista.filter( item =>item.name.includes(filter))
+  console.log(2,lista);
+    tablaFiltrada=lista
+    .filter( item =>item.name.includes(filter[0]))
+    .filter( item =>item.type.includes(filter[1]))
+    .filter( item =>item.weight.includes(filter[2]))
+    .filter( item =>item.size.includes(filter[3]))
     .map((drone, i) => (
       <tr>
         <td> {i} </td>
@@ -16,53 +18,7 @@ const filtering = (lista, field, filter) => {
       </tr>
       )
     )
-
-    break;
-  case 'type':
-    tablaFiltrada=lista.filter( item =>item.type.includes(filter))
-    .map((drone, i) => (
-      <tr>
-        <td> {i} </td>
-        <td> { drone.name || ''} </td>
-        <td> { drone.type || ''} </td>
-        <td> { drone.weight || 0} </td>
-        <td> { drone.size || ''}</td>
-
-      </tr>
-      )
-    )
-    break;
-  case 'weight':
-    tablaFiltrada=lista.filter( item =>item.weight.includes(filter))
-    .map((drone, i) => (
-      <tr>
-        <td> {i} </td>
-        <td> { drone.name || ''} </td>
-        <td> { drone.type || ''} </td>
-        <td> { drone.weight || 0} </td>
-        <td> { drone.size || ''}</td>
-
-      </tr>
-      )
-    )
-    break;
-  case 'size':
-    tablaFiltrada=lista.filter( item =>item.size.includes(filter))
-    .map((drone, i) => (
-      <tr>
-        <td> {i} </td>
-        <td> { drone.name || ''} </td>
-        <td> { drone.type || ''} </td>
-        <td> { drone.weight || 0} </td>
-        <td> { drone.size || ''}</td>
-
-      </tr>
-      )
-    )
-    break;
-  default:
-    //'error';//TODO mejorar
-}
+console.log(3,tablaFiltrada);
 return tablaFiltrada;
 };
 

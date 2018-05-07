@@ -1,35 +1,50 @@
 import React, {Component} from 'react';
 import { Button, Table } from 'reactstrap';
 import {filtering} from '../../functions/filtering'
+import { EmptyList } from '../../components';
 
-const Filtro = ({ lista , filter ,  handleChangeFilter }) => {
-
-  console.log(1,lista);
+export const FilterScreen = ({ items , droneFilter , handleChangeDroneFilter }) => {
   return (
+
     <div>
+    <h2>Filtros:</h2>
+    {
+      (!items || items.length === 0)
+      && (<EmptyList type={'vuelos'} />)
+    }
+    {
+      (items && items.length > 0)
+      && <FilteredDroneList items={items} handleChangeDroneFilter={handleChangeDroneFilter} droneFilter={droneFilter}/>
+    }
+  </div>
+  );
+};
+
+const FilteredDroneList = ({ items, droneFilter, handleChangeDroneFilter}) => (
+  <div>
     <input
       type='text'
       placeholder='Filtro nombre'
-      onChange={(e) => handleChangeFilter(e.target.value,0)}
-      value={filter[0]}
+      onChange={(e) => handleChangeDroneFilter(e.target.value,0)}
+      value={droneFilter[0]}
     />
     <input
       type='text'
       placeholder='Filtro tipo'
-      onChange={(e) => handleChangeFilter(e.target.value,1)}
-      value={filter[1]}
+      onChange={(e) => handleChangeDroneFilter(e.target.value,1)}
+      value={droneFilter[1]}
     />
     <input
       type='text'
       placeholder='Filtro peso'
-      onChange={(e) => handleChangeFilter(e.target.value,2)}
-      value={filter[2]}
+      onChange={(e) => handleChangeDroneFilter(e.target.value,2)}
+      value={droneFilter[2]}
     />
     <input
       type='text'
       placeholder='Filtro tamaño'
-      onChange={(e) => handleChangeFilter(e.target.value,3)}
-      value={filter[3]}
+      onChange={(e) => handleChangeDroneFilter(e.target.value,3)}
+      value={droneFilter[3]}
     />
 
     <Table>
@@ -44,41 +59,8 @@ const Filtro = ({ lista , filter ,  handleChangeFilter }) => {
         </tr>
       </thead>
       <tbody>
-        {filtering(lista, filter)}
+        {filtering(items, droneFilter)}
       </tbody>
     </Table>
   </div>
-  );
-};
-
-
-
-class Filter extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-    	items: [],
-      filter: ["","","",""],
-    }
-  }
-
-  handleChangeFilter = (value,i) => {
-    let auxFilter = this.state.filter.slice();
-    auxFilter[i]=value;
-    this.setState({ filter:auxFilter });
-  }
-
-
-
-  render() {
-  	const { filter = '', items = []} = this.state;
-    return (
-      <div>
-        <h2>Filtros:</h2>
-         <Filtro lista={items} filter={filter} handleChangeFilter={this.handleChangeFilter} handleChangeField={this.handleChangeField}/>
-      </div>
-    )
-  }
-}
-
-export {Filter}
+);

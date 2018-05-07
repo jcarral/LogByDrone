@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-import {MainNavBar} from '../../mainNavbarLogged';
 import '../../styles/headerAdjusting.css';
 import {Link} from 'react-router-dom';
 

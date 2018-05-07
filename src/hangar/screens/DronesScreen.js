@@ -1,11 +1,8 @@
 import React from 'react';
 import { EmptyList } from '../../components';
 import { Button, Table } from 'reactstrap';
-
-import {MainNavBar} from '../../mainNavbarLogged';
 import '../../styles/headerAdjusting.css';
-import {sortTable} from '../../functions/sortTables'
-import {filterType} from '../../functions/filterType'
+
 
 const droneSizes = [
   '12x12',
@@ -85,11 +82,11 @@ const DroneList = ({ items, handleDelete }) => (
   <Table>
     <thead>
       <tr>
-        <th onClick={sortTable(0)} >#</th>
-        <th onClick={sortTable(1)}>Nombre del drone</th>
-        <th onClick={sortTable(2)}>Tipo de drone</th>
-        <th onClick={sortTable(3)}>Peso del drone</th>
-        <th onClick={sortTable(4)}>Tamaño del drone </th>
+        <th>#</th>
+        <th>Nombre del drone</th>
+        <th>Tipo de drone</th>
+        <th>Peso del drone</th>
+        <th>Tamaño del drone </th>
         <th></th>
       </tr>
     </thead>

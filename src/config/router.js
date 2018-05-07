@@ -7,7 +7,6 @@ import { LoginPage, SignUpPage } from '../auth';
 import { Hangar } from '../hangar';
 
 import {MainNavBar} from '../mainNavbar.js';
-import {MainNavBarLogged} from '../mainNavbarLogged.js';
 
 const ProtectedRoute = ({ component: Comp, loggedIn, path, ...rest }) => {
   return (

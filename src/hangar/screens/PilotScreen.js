@@ -1,7 +1,6 @@
 import React from 'react';
 import { EmptyList } from '../../components';
 import { Table, Button } from 'reactstrap';
-import {MainNavBar} from '../../mainNavbarLogged';
 import '../../styles/headerAdjusting.css';
 
 export const Pilots = ({ items, handleAddPilot, handleChangeText, pilotName, error, handleDelete }) => {

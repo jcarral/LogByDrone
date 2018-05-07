@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { Button, Table } from 'reactstrap';
-import {sortTable} from '../../functions/sortTables'
 import {filtering} from '../../functions/filtering'
 
 const Filtro = ({ lista , filter ,  handleChangeFilter }) => {
 
+  console.log(1,lista);
   return (
     <div>
     <input

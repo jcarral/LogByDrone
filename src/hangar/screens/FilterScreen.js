@@ -9,25 +9,25 @@ const Filtro = ({ lista , filter ,  handleChangeFilter }) => {
     <div>
     <input
       type='text'
-      placeholder='Filtro'
+      placeholder='Filtro nombre'
       onChange={(e) => handleChangeFilter(e.target.value,0)}
       value={filter[0]}
     />
     <input
       type='text'
-      placeholder='Filtro'
+      placeholder='Filtro tipo'
       onChange={(e) => handleChangeFilter(e.target.value,1)}
       value={filter[1]}
     />
     <input
       type='text'
-      placeholder='Filtro'
+      placeholder='Filtro peso'
       onChange={(e) => handleChangeFilter(e.target.value,2)}
       value={filter[2]}
     />
     <input
       type='text'
-      placeholder='Filtro'
+      placeholder='Filtro tamaño'
       onChange={(e) => handleChangeFilter(e.target.value,3)}
       value={filter[3]}
     />

@@ -7,10 +7,12 @@ import { HangarScreen, Pilots, Flights, Drones } from './screens';
 import { LoadingTab } from '../components';
 import { Validator } from '../utils';
 
+import {FilterScreen} from './screens/FilterScreen';
 // TABS:
 const FLIGHTS = 0;
 const DRONES = 1;
 const PILOTS = 2;
+const FILTER = 3;
 
 class HangarContainer extends Component{
 
@@ -25,7 +27,9 @@ class HangarContainer extends Component{
     flightName: '',
     flightPilot: {},
     flightDrone: {},
+    droneFilter: ["","","",""],
   };
+
 
   componentWillMount = () => {
     const { groupId, getHangarAction } = this.props;
@@ -45,7 +49,7 @@ class HangarContainer extends Component{
         },
         groupId
       );
-    } 
+    }
   };
 
   handleAddDrone = () => {
@@ -100,7 +104,7 @@ class HangarContainer extends Component{
       pilot,
       name: flightName,
     });
-    
+
   }
 
   handleChangeText = (text, key) => {
@@ -147,6 +151,15 @@ class HangarContainer extends Component{
     deleteItemAction(type, key);
   };
 
+  handleChangeDroneFilter = (value,i) => {
+    let auxFilter = this.state.droneFilter.slice();
+    auxFilter[i]=value;
+    this.setState({ droneFilter:auxFilter });
+    /*let { droneFilter } = this.state;
+    droneFilter[i]=value;
+    this.setState({ droneFilter });*/
+  };
+
   render(){
     const {
       pilots,
@@ -166,6 +179,7 @@ class HangarContainer extends Component{
       flightPilot,
       flightDrone,
       flightName,
+      droneFilter,
     } = this.state;
     const tabComponents = [
       <Flights
@@ -203,6 +217,12 @@ class HangarContainer extends Component{
         error={updateErrors.pilots}
         handleDelete={this.handleDelete}
       />,
+      <FilterScreen
+        items={drones}
+        droneFilter={droneFilter}
+        handleChangeDroneFilter={this.handleChangeDroneFilter}
+      />
+    ,
     ];
 
     return (
@@ -210,13 +230,13 @@ class HangarContainer extends Component{
         handleChangeTab={this.handleChangeText}
         handleLogout={this.handleLogout}
       >
-        { 
-          loading 
+        {
+          loading
           && (<LoadingTab />)
         }
-        { 
+        {
           !loading
-          && tabComponents[tab] 
+          && tabComponents[tab]
         }
       </HangarScreen>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { EmptyList, WarningAlert } from '../../components';
 import { Table, Button } from 'reactstrap';
+import '../../styles/headerAdjusting.css';
 
 export const Flights = ({
   items,
@@ -17,7 +18,7 @@ export const Flights = ({
   handleDelete,
 }) => {
   return (
-    <div>
+    <div className="headerAdjusting">
       {
         (!items || items.length === 0)
         && (<EmptyList type={'vuelos'} />)
@@ -110,7 +111,7 @@ const FlightUpload = ({
   flightPilot,
   flightDrone,
   handleSelect
-  }) => 
+  }) =>
 (
     <div className="file-container">
       <div className="file-drop-area">

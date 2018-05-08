@@ -6,6 +6,8 @@ import { getUser } from '../auth';
 import { LoginPage, SignUpPage } from '../auth';
 import { Hangar } from '../hangar';
 
+import {MainNavBar} from '../mainNavbar.js';
+
 const ProtectedRoute = ({ component: Comp, loggedIn, path, ...rest }) => {
   return (
     <Route
@@ -56,7 +58,7 @@ class RouterApp extends Component {
     const { getUserAction } = this.props;
     getUserAction();
   }
-  
+
 
   render() {
     const { state = {} } = this.props.location || {};
@@ -65,7 +67,11 @@ class RouterApp extends Component {
     return (
       <BrowserRouter>
       <div>
-        
+        {
+          !loggedIn
+          &&  <MainNavBar/>
+        }
+
         {error && <div> Error: {error} </div>}
           <Switch>
             <AnonRoute path='/login' component={LoginPage} loggedIn={loggedIn}/>
@@ -90,8 +96,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 export const Router = connect(mapStateToProps, mapDispatchToProps)(RouterApp);
 
-/** 
- * 
+/**
+ *
 */
 
 const TestComponent = () => (

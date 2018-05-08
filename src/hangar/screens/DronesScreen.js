@@ -1,6 +1,8 @@
 import React from 'react';
 import { EmptyList } from '../../components';
 import { Button, Table } from 'reactstrap';
+import '../../styles/headerAdjusting.css';
+
 
 const droneSizes = [
   '12x12',
@@ -11,9 +13,9 @@ const droneSizes = [
 
 export const Drones = ({ items, handleAddDrone, handleChangeText, values, error, handleDelete }) => {
   return (
-    <div>
+    <div className="headerAdjusting">
       {
-        error 
+        error
         && ( <div> { error } </div>) //TODO: usar component alerta
       }
       <CreateDrone
@@ -69,8 +71,12 @@ const CreateDrone = ({ handleChangeText, values, handleAddDrone}) => (
     >
       Añadir drone
     </Button>
+
   </div>
 );
+
+
+
 
 const DroneList = ({ items, handleDelete }) => (
   <Table>
@@ -87,16 +93,16 @@ const DroneList = ({ items, handleDelete }) => (
     <tbody>
       {items.map((drone, i) => (
         <tr>
-          <th> {i} </th>
-          <th> { drone.name || ''} </th>
-          <th> { drone.type || ''} </th>
-          <th> { drone.weight || 0} </th>
-          <th> { drone.size || ''}</th>
-          <th> <Button color='danger' onClick={() => handleDelete('drones', drone.key)}> Borrar </Button> </th>
+          <td> {i} </td>
+          <td> { drone.name || ''} </td>
+          <td> { drone.type || ''} </td>
+          <td> { drone.weight || 0} </td>
+          <td> { drone.size || ''}</td>
+          <td> <Button color='danger' onClick={() => handleDelete('drones', drone.key)}> Borrar </Button> </td>
         </tr>
         )
       )}
     </tbody>
-   
+
   </Table>
 );
